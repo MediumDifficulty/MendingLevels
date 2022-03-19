@@ -9,7 +9,7 @@
     "MediumDifficulty"
   ],
 
-  "license": "GNU GPLv3",
+  "license": "GNU LGPLv3",
   "icon": "assets/mendinglevels/icon.png",
 
   "environment": "*",
