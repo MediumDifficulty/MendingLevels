@@ -10,7 +10,7 @@ import yes.mediumdifficulty.mendinglevels.MendingLevels;
 
 @Mixin(MendingEnchantment.class)
 public class MendingEnchantmentMixin {
-    @Inject(method = "getMaxLevel", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getMaximumLevel", at = @At("RETURN"), cancellable = true)
     private void getMaxLevelInjection(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(MendingLevels.MAX_LEVEL);
     }

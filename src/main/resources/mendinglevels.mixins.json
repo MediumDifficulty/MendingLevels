@@ -4,6 +4,8 @@
 	"package": "yes.mediumdifficulty.mendinglevels.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
+		"ExperienceOrbEntityMixin",
+		"MendingEnchantmentMixin"
 	],
 	"client": [
 	],

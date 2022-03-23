@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Map;
@@ -32,26 +32,26 @@ public class ExperienceOrbEntityMixin {
     private int tempMendingLevel = 0;
 
     @Inject(
-            method = "repairPlayerGears", at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/Map$Entry;getValue()Ljava/lang/Object;"),
+            method = "onPlayerCollision", at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/Map$Entry;getValue()Ljava/lang/Object;"),
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private void repairPlayerGearsCapture(PlayerEntity player, int amount, CallbackInfoReturnable<Integer> cir, Map.Entry entry) {
+    private void repairPlayerGearsCapture(PlayerEntity player, CallbackInfo ci, Map.Entry entry) {
         tempMendingLevel = EnchantmentHelper.getLevel(Enchantments.MENDING, (ItemStack) entry.getValue());
     }
 
     @Redirect(
-            method = "repairPlayerGears",
+            method = "onPlayerCollision",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;getMendingRepairAmount(I)I")
     )
-    private int repairPlayerGearsGetMendingRepairAmountInjection(ExperienceOrbEntity instance, int experienceAmount) {
+    private int onPlayerCollisionGetMendingRepairAmountInjection(ExperienceOrbEntity instance, int experienceAmount) {
         return getMendingRepairAmount(experienceAmount, tempMendingLevel);
     }
 
     @Redirect(
-            method = "repairPlayerGears",
+            method = "onPlayerCollision",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ExperienceOrbEntity;getMendingRepairCost(I)I")
     )
-    private int repairPlayerGearsGetMendingRepairCostInjection(ExperienceOrbEntity instance, int repairAmount) {
+    private int onPlayerCollisionGetMendingRepairCostInjection(ExperienceOrbEntity instance, int repairAmount) {
         return getMendingRepairCost(repairAmount, tempMendingLevel);
     }
 }
