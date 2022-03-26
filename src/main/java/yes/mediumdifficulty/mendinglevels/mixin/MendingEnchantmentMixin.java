@@ -3,7 +3,8 @@ package yes.mediumdifficulty.mendinglevels.mixin;
 import net.minecraft.world.item.enchantment.MendingEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import yes.mediumdifficulty.mendinglevels.config.Common;
+import yes.mediumdifficulty.mendinglevels.config.ConfigManager;
+
 
 @Mixin(MendingEnchantment.class)
 public class MendingEnchantmentMixin {
